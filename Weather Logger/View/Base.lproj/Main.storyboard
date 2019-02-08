@@ -21,26 +21,45 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Weather background" translatesAutoresizingMaskIntoConstraints="NO" id="XWu-CZ-73r">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="91H-qC-62I" userLabel="City Label">
-                                <rect key="frame" x="0.0" y="64" width="187.5" height="50"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kf4-RQ-s7C" userLabel="Temperature Label">
-                                <rect key="frame" x="187.5" y="64" width="187.5" height="50"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5ZE-kw-UeZ" userLabel="WeatherView">
+                                <rect key="frame" x="0.0" y="64" width="375" height="301.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="91H-qC-62I" userLabel="City Label">
+                                        <rect key="frame" x="0.0" y="0.0" width="187.5" height="151"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kf4-RQ-s7C" userLabel="Temperature Label">
+                                        <rect key="frame" x="187.5" y="0.0" width="187.5" height="151"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="drb-XX-gep" userLabel="Weather Icon Image">
+                                        <rect key="frame" x="112" y="151" width="151" height="150.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="drb-XX-gep" secondAttribute="height" multiplier="1:1" id="FHV-Xq-Chs"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="GHk-kY-aD3"/>
+                                    <constraint firstAttribute="trailing" secondItem="Kf4-RQ-s7C" secondAttribute="trailing" id="3Aw-Yc-9bL"/>
+                                    <constraint firstItem="91H-qC-62I" firstAttribute="top" secondItem="5ZE-kw-UeZ" secondAttribute="top" id="Mb0-2A-qyd"/>
+                                    <constraint firstItem="91H-qC-62I" firstAttribute="leading" secondItem="5ZE-kw-UeZ" secondAttribute="leading" id="PBx-Kd-kjd"/>
+                                    <constraint firstItem="Kf4-RQ-s7C" firstAttribute="top" secondItem="5ZE-kw-UeZ" secondAttribute="top" id="Q78-im-T0Y"/>
+                                    <constraint firstItem="drb-XX-gep" firstAttribute="top" secondItem="91H-qC-62I" secondAttribute="bottom" id="Y1p-1Z-vw5"/>
+                                    <constraint firstAttribute="bottom" secondItem="drb-XX-gep" secondAttribute="bottom" id="aLn-nu-dBo"/>
+                                    <constraint firstItem="Kf4-RQ-s7C" firstAttribute="leading" secondItem="91H-qC-62I" secondAttribute="trailing" id="hyA-2X-Ayd"/>
+                                    <constraint firstItem="Kf4-RQ-s7C" firstAttribute="width" secondItem="91H-qC-62I" secondAttribute="width" id="iNX-gX-IK1"/>
+                                    <constraint firstItem="Kf4-RQ-s7C" firstAttribute="height" secondItem="91H-qC-62I" secondAttribute="height" id="mAl-pi-eFl"/>
+                                    <constraint firstItem="drb-XX-gep" firstAttribute="height" secondItem="Kf4-RQ-s7C" secondAttribute="height" id="rHF-Yr-MTe"/>
+                                    <constraint firstItem="drb-XX-gep" firstAttribute="centerX" secondItem="5ZE-kw-UeZ" secondAttribute="centerX" id="zbx-A4-z1F"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="drb-XX-gep" userLabel="Weather Icon Image">
-                                <rect key="frame" x="0.0" y="114" width="375" height="206"/>
-                            </imageView>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="B6l-ec-Kdt" userLabel="Saved Weather Table view">
-                                <rect key="frame" x="0.0" y="320" width="375" height="347"/>
+                                <rect key="frame" x="0.0" y="365.5" width="375" height="301.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="savedDataCell" id="R6T-uC-5OT">
@@ -56,24 +75,17 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Kf4-RQ-s7C" firstAttribute="leading" secondItem="91H-qC-62I" secondAttribute="trailing" id="3Uj-qH-das"/>
-                            <constraint firstItem="91H-qC-62I" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="FEP-ne-2TI"/>
+                            <constraint firstItem="5ZE-kw-UeZ" firstAttribute="height" secondItem="B6l-ec-Kdt" secondAttribute="height" id="5zp-fI-Xdu"/>
+                            <constraint firstItem="5ZE-kw-UeZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ED1-Lp-32l"/>
                             <constraint firstItem="B6l-ec-Kdt" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="HkG-ds-qn9"/>
-                            <constraint firstItem="91H-qC-62I" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="IX1-ca-QBw"/>
-                            <constraint firstItem="B6l-ec-Kdt" firstAttribute="top" secondItem="drb-XX-gep" secondAttribute="bottom" id="KPD-lU-NIs"/>
-                            <constraint firstItem="drb-XX-gep" firstAttribute="top" secondItem="91H-qC-62I" secondAttribute="bottom" id="Q7P-tD-Hwl"/>
+                            <constraint firstItem="B6l-ec-Kdt" firstAttribute="top" secondItem="5ZE-kw-UeZ" secondAttribute="bottom" id="NcS-nz-YAF"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="B6l-ec-Kdt" secondAttribute="bottom" id="SN0-Mg-BHW"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Kf4-RQ-s7C" secondAttribute="trailing" id="TpV-Je-35e"/>
-                            <constraint firstItem="drb-XX-gep" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="XbS-KK-rwh"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="5ZE-kw-UeZ" secondAttribute="trailing" id="aFY-Pt-hXP"/>
+                            <constraint firstItem="5ZE-kw-UeZ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="aXy-NP-nTp"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="B6l-ec-Kdt" secondAttribute="trailing" id="kRR-m2-5Bt"/>
-                            <constraint firstItem="91H-qC-62I" firstAttribute="height" secondItem="Kf4-RQ-s7C" secondAttribute="height" id="kxa-ku-LV2"/>
-                            <constraint firstItem="Kf4-RQ-s7C" firstAttribute="width" secondItem="91H-qC-62I" secondAttribute="width" id="l0a-xk-lEj"/>
-                            <constraint firstItem="Kf4-RQ-s7C" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="l4t-c3-SFE"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="XWu-CZ-73r" secondAttribute="bottom" id="mfC-do-gSM"/>
-                            <constraint firstItem="B6l-ec-Kdt" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" multiplier="5" id="oDQ-Gs-U4v"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="XWu-CZ-73r" secondAttribute="trailing" id="ops-FV-c42"/>
                             <constraint firstItem="XWu-CZ-73r" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="s1V-ho-FML"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="drb-XX-gep" secondAttribute="trailing" id="vmv-SV-b5P"/>
                             <constraint firstItem="XWu-CZ-73r" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="xhx-0Y-46C"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>

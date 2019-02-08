@@ -99,11 +99,10 @@
 		9F434507220D7BC8001E5F1A /* Weather Logger */ = {
 			isa = PBXGroup;
 			children = (
-				9F434508220D7BC8001E5F1A /* AppDelegate.swift */,
-				9F43450A220D7BC8001E5F1A /* ViewController.swift */,
-				9F43450C220D7BC8001E5F1A /* Main.storyboard */,
+				9F43453B220D7CE0001E5F1A /* Controller */,
+				9F43453A220D7CD7001E5F1A /* View */,
+				9F434539220D7CC1001E5F1A /* Model */,
 				9F434512220D7BCA001E5F1A /* Assets.xcassets */,
-				9F434514220D7BCA001E5F1A /* LaunchScreen.storyboard */,
 				9F434517220D7BCA001E5F1A /* Info.plist */,
 				9F43450F220D7BC8001E5F1A /* Weather_Logger.xcdatamodeld */,
 			);
@@ -126,6 +125,31 @@
 				9F43452D220D7BCA001E5F1A /* Info.plist */,
 			);
 			path = "Weather LoggerUITests";
+			sourceTree = "<group>";
+		};
+		9F434539220D7CC1001E5F1A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9F43453A220D7CD7001E5F1A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9F434514220D7BCA001E5F1A /* LaunchScreen.storyboard */,
+				9F43450C220D7BC8001E5F1A /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9F43453B220D7CE0001E5F1A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				9F434508220D7BC8001E5F1A /* AppDelegate.swift */,
+				9F43450A220D7BC8001E5F1A /* ViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

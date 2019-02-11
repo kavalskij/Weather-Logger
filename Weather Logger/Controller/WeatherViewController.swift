@@ -21,6 +21,7 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
     let APP_ID = "e093d3753e16fc1049bc73e08ff837f4"
     
     let locationManager = CLLocationManager()
+    let weatherDataClass = WeatherDataClass()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +30,9 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
+        
+        temperatureLabel.adjustsFontSizeToFitWidth = true
+        cityLabel.adjustsFontSizeToFitWidth = true
     }
     
     
@@ -43,7 +47,9 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
                 print("Got the weather data")
                
                 guard let data = response.data else {return}
-                print(String(data: data, encoding: .utf8)!)
+                //print(String(data: data, encoding: .utf8)!)
+                
+                self.updateWeatherData(data: data)
                 
             } else {
                 print("Error \(String(describing: response.result.error))")
@@ -58,10 +64,21 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
     
     //MARK: - JSON Parsing
     
-    func updateWeatherData() {
+    func updateWeatherData(data: Data) {
 
-        
-
+        do {
+            var weatherData = try JSONDecoder().decode(WeatherDataModel.self, from: data)
+            
+            cityLabel.text = weatherData.name
+            temperatureLabel.text = String(Int((weatherData.main.temp) - 273.15))
+            weatherDataClass.weatherIconName = updateWeatherIcon(condition: weatherData.weather[0].id)
+            weatherIcon.image = UIImage(named: weatherDataClass.weatherIconName)
+            
+        } catch {
+            print(error)
+            self.temperatureLabel.text = "Weather Unavailable"
+            self.cityLabel.text = "Check your internet connection"
+        }
     }
 
     

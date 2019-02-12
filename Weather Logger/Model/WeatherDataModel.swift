@@ -11,25 +11,45 @@ import Foundation
 class WeatherDataClass {
     
     var weatherIconName: String = ""
+    var weatherIconId: Int = 0
     var dateAndTimeSaved: Date = Date()
+    var temperature: Int = 0
+    var weatherId: Int = 0
+    var cityName: String = ""
 }
 
-struct WeatherDataModel: Decodable {
+class WeatherDataModel: Decodable {
     
     var main: Main
     var weather: [Weather]
     var name: String
 }
 
-struct Main : Decodable {
+class Main: Decodable {
     
     var temp: Double
 }
 
-struct Weather: Decodable {
-    
+class Weather: Decodable {
     var id: Int
 }
+
+//struct WeatherDataModel: Decodable {
+//
+//    var main: Main
+//    var weather: [Weather]
+//    var name: String
+//}
+//
+//struct Main : Decodable {
+//
+//    var temp: Double
+//}
+//
+//struct Weather: Decodable {
+//
+//    var id: Int
+//}
 
 
 func updateWeatherIcon(condition: Int) -> String {

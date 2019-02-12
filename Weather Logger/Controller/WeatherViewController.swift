@@ -9,12 +9,18 @@
 import UIKit
 import CoreLocation
 import Alamofire
+import CoreData
 
 class WeatherViewController: UIViewController, CLLocationManagerDelegate {
     
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var weatherIcon: UIImageView!
+    @IBOutlet weak var tableView: UITableView!
+    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var weatherArray = [SavedWeathedData]()
+    
     
     //Constants
     let WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather"
@@ -22,6 +28,8 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
     
     let locationManager = CLLocationManager()
     let weatherDataClass = WeatherDataClass()
+    
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +57,7 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
                 guard let data = response.data else {return}
                 //print(String(data: data, encoding: .utf8)!)
                 
-                self.updateWeatherData(data: data)
+                self.updateWeatherData(using: data)
                 
             } else {
                 print("Error \(String(describing: response.result.error))")
@@ -64,14 +72,19 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
     
     //MARK: - JSON Parsing
     
-    func updateWeatherData(data: Data) {
+    func updateWeatherData(using data: Data) {
 
         do {
-            var weatherData = try JSONDecoder().decode(WeatherDataModel.self, from: data)
+            let weatherData = try JSONDecoder().decode(WeatherDataModel.self, from: data)
             
-            cityLabel.text = weatherData.name
-            temperatureLabel.text = String(Int((weatherData.main.temp) - 273.15))
+            weatherDataClass.cityName = weatherData.name
+            weatherDataClass.dateAndTimeSaved = Date()
+            weatherDataClass.temperature = Int((weatherData.main.temp) - 273.15)
             weatherDataClass.weatherIconName = updateWeatherIcon(condition: weatherData.weather[0].id)
+            
+            
+            cityLabel.text = weatherDataClass.cityName
+            temperatureLabel.text = String(weatherDataClass.temperature)
             weatherIcon.image = UIImage(named: weatherDataClass.weatherIconName)
             
         } catch {
@@ -105,6 +118,58 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
         print(error)
         cityLabel.text = "Location Unavailable"
     }
+    
+    //MARK: - Saving Weather in Core Data
+    
+    @IBAction func saveWeatherData(_ sender: UIBarButtonItem) {
+        
+        let newWeatherData = SavedWeathedData(context: self.context)
+        
+        newWeatherData.city = weatherDataClass.cityName
+        newWeatherData.dateAndTime = weatherDataClass.dateAndTimeSaved
+        newWeatherData.temperature = Double(weatherDataClass.temperature)
+        newWeatherData.weatherIconName = weatherDataClass.weatherIconName
+        
+        weatherArray.append(newWeatherData)
+        
+        self.saveWeatherDetails()
+
+
+        self.tableView.reloadData()
+    }
+    
+    func saveWeatherDetails() {
+        
+        do {
+            try context.save()
+        } catch {
+            print("Error saving context \(error)")
+        }
+    }
+
+    
+}
+
+extension WeatherViewController: UITableViewDataSource {
+    
+    //MARK: - Table View Data source and Delegate
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return weatherArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "savedDataCell", for: indexPath)
+        
+        cell.textLabel?.text = String(weatherArray[indexPath.row].temperature)
+        cell.detailTextLabel?.text = Helper().formatDate(fromDate: weatherArray[indexPath.row].dateAndTime!)
+            
+        print(weatherArray[indexPath.row])
+        
+        return cell
+    }
+    
     
 }
 

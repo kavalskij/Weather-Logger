@@ -157,6 +157,12 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
             print("Error fetching data from context \(error)")
         }
     }
+    
+    //MARK: - Segue to ChangeCityViewController
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        <#code#>
+//    }
 
     
 }

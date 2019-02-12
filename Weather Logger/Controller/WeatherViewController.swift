@@ -11,7 +11,7 @@ import CoreLocation
 import Alamofire
 import CoreData
 
-class WeatherViewController: UIViewController, CLLocationManagerDelegate {
+class WeatherViewController: UIViewController, CLLocationManagerDelegate, ChangeCityDelegate {
     
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var temperatureLabel: UILabel!
@@ -68,8 +68,6 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     
-    
-    
     //MARK: - JSON Parsing
     
     func updateWeatherData(using data: Data) {
@@ -84,7 +82,7 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
             
             
             cityLabel.text = weatherDataClass.cityName
-            temperatureLabel.text = String(weatherDataClass.temperature)
+            temperatureLabel.text = "\(String(weatherDataClass.temperature))°" //String(weatherDataClass.temperature)
             weatherIcon.image = UIImage(named: weatherDataClass.weatherIconName)
             
         } catch {
@@ -158,11 +156,22 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
+    //MARK: - ChangeCityDelegate methods
+    
+    func userEnteredANewCityName(city: String) {
+        print(city)
+    }
+    
     //MARK: - Segue to ChangeCityViewController
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        <#code#>
-//    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "changeCityName" {
+            let destinationVC = segue.destination as! ChangeCityViewController
+            destinationVC.delegate = self
+        }
+    
+    }
 
     
 }

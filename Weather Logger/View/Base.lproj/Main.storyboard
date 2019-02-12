@@ -46,7 +46,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="50.5" height="50.5"/>
                                         <state key="normal" image="switch"/>
                                         <connections>
-                                            <segue destination="WUd-K2-05T" kind="show" id="amk-vO-Ghd"/>
+                                            <segue destination="WUd-K2-05T" kind="show" identifier="changeCityName" id="Bbp-Rd-98C"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -125,10 +125,10 @@
             </objects>
             <point key="canvasLocation" x="1072.8" y="133.5832083958021"/>
         </scene>
-        <!--View Controller-->
+        <!--Change City View Controller-->
         <scene sceneID="4Ka-Bm-5oE">
             <objects>
-                <viewController id="WUd-K2-05T" sceneMemberID="viewController">
+                <viewController id="WUd-K2-05T" customClass="ChangeCityViewController" customModule="Weather_Logger" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Y9f-mI-2vk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -150,6 +150,9 @@
                                 <state key="normal" title="Get Weather">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="getWeatherPressed:" destination="WUd-K2-05T" eventType="touchUpInside" id="5vg-CX-y6n"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -166,6 +169,10 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fEQ-42-aYp"/>
                     </view>
+                    <connections>
+                        <outlet property="changeCityTextField" destination="d1a-Qc-3Wl" id="38Z-TK-Nye"/>
+                        <outlet property="getWeatherPressed" destination="Amf-ix-2D7" id="V1h-y6-etf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ite-MN-sv9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

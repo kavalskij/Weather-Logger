@@ -21,7 +21,6 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var weatherArray = [SavedWeathedData]()
     
-    
     //Constants
     let WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather"
     let APP_ID = "e093d3753e16fc1049bc73e08ff837f4"
@@ -29,7 +28,6 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
     let locationManager = CLLocationManager()
     let weatherDataClass = WeatherDataClass()
     
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +39,8 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
         
         temperatureLabel.adjustsFontSizeToFitWidth = true
         cityLabel.adjustsFontSizeToFitWidth = true
+        
+        loadSavedWeather()
     }
     
     
@@ -146,11 +146,22 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
             print("Error saving context \(error)")
         }
     }
+    
+    func loadSavedWeather() {
+        
+        let request : NSFetchRequest<SavedWeathedData> = SavedWeathedData.fetchRequest()
+        
+        do {
+            weatherArray = try context.fetch(request)
+        } catch {
+            print("Error fetching data from context \(error)")
+        }
+    }
 
     
 }
 
-extension WeatherViewController: UITableViewDataSource {
+extension WeatherViewController: UITableViewDataSource, UITableViewDelegate {
     
     //MARK: - Table View Data source and Delegate
     
@@ -160,16 +171,32 @@ extension WeatherViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "savedDataCell", for: indexPath)
+        let cell = Bundle.main.loadNibNamed("TableViewCell", owner: self, options: nil)?.first as! TableViewCell
         
-        cell.textLabel?.text = String(weatherArray[indexPath.row].temperature)
-        cell.detailTextLabel?.text = Helper().formatDate(fromDate: weatherArray[indexPath.row].dateAndTime!)
-            
-        print(weatherArray[indexPath.row])
+        cell.cityNameLabel?.text = weatherArray[indexPath.row].city
+        cell.temperatureLabel?.text = String(weatherArray[indexPath.row].temperature)
+        cell.dateAndTimeLabel?.text = Helper().formatDate(fromDate: weatherArray[indexPath.row].dateAndTime!)
+        cell.weatherIconImage?.image = UIImage(named: weatherArray[indexPath.row].weatherIconName!)
         
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        context.delete(weatherArray[indexPath.row])
+        weatherArray.remove(at: indexPath.row)
+        
+        saveWeatherDetails()
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        self.tableView.reloadData()
+    }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        return 90
+    }
+
 }
 

@@ -34,23 +34,6 @@ class Weather: Decodable {
     var id: Int
 }
 
-//struct WeatherDataModel: Decodable {
-//
-//    var main: Main
-//    var weather: [Weather]
-//    var name: String
-//}
-//
-//struct Main : Decodable {
-//
-//    var temp: Double
-//}
-//
-//struct Weather: Decodable {
-//
-//    var id: Int
-//}
-
 
 func updateWeatherIcon(condition: Int) -> String {
     

@@ -76,3 +76,45 @@ func updateWeatherIcon(condition: Int) -> String {
         return "dunno"
     }
 }
+
+func updateWeatherBackground(condition: Int) -> String {
+    
+    switch (condition) {
+        
+    case 0...300 :
+        return "stormSky"
+        
+    case 301...500 :
+        return "rainSky"
+        
+    case 501...600 :
+        return "rainSky"
+        
+    case 601...700 :
+        return "snowySky"
+        
+    case 701...771 :
+        return "fogySky"
+        
+    case 772...799 :
+        return "stormSky"
+        
+    case 800 :
+        return "blueSky"
+        
+    case 801...804 :
+        return "cloudySky"
+        
+    case 900...903, 905...1000  :
+        return "stormSky"
+        
+    case 903 :
+        return "snowySky"
+        
+    case 904 :
+        return "blueSky"
+        
+    default :
+        return "blueSky"
+    }
+}

@@ -11,12 +11,14 @@ import CoreLocation
 import Alamofire
 import CoreData
 
-class WeatherViewController: UIViewController, CLLocationManagerDelegate, ChangeCityDelegate {
+class WeatherViewController: UIViewController, CLLocationManagerDelegate {
     
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var weatherIcon: UIImageView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var weatherBackgroundImage: UIImageView!
+    @IBOutlet weak var savedWeatherSearchBar: UISearchBar!
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var weatherArray = [SavedWeathedData]()
@@ -52,11 +54,8 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, Change
         Alamofire.request(url, method: .get, parameters: parameters).responseJSON {
             response in
             if response.result.isSuccess {
-                print("Got the weather data")
                
                 guard let data = response.data else {return}
-                //print(String(data: data, encoding: .utf8)!)
-                
                 self.updateWeatherData(using: data)
                 
             } else {
@@ -82,8 +81,9 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, Change
             
             
             cityLabel.text = weatherDataClass.cityName
-            temperatureLabel.text = "\(String(weatherDataClass.temperature))°" //String(weatherDataClass.temperature)
+            temperatureLabel.text = "\(String(weatherDataClass.temperature))°"
             weatherIcon.image = UIImage(named: weatherDataClass.weatherIconName)
+            weatherBackgroundImage.image = UIImage(named: updateWeatherBackground(condition: weatherData.weather[0].id))
             
         } catch {
             print(error)
@@ -114,7 +114,8 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, Change
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
-        cityLabel.text = "Location Unavailable"
+        cityLabel.text = "Make sure you allow Weather Logger to use your gps position"
+        temperatureLabel.text = "Location Unavailable"
     }
     
     //MARK: - Saving Weather in Core Data
@@ -156,15 +157,6 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, Change
         }
     }
     
-    //MARK: - ChangeCityDelegate methods
-    
-    func userEnteredANewCityName(city: String) {
-        
-        let params: [String: String] = ["q" : city, "appid" : APP_ID]
-        
-        getWeatherData(url: WEATHER_URL, parameters: params)
-    }
-    
     //MARK: - Segue to ChangeCityViewController
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -177,9 +169,9 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, Change
     
 }
 
-extension WeatherViewController: UITableViewDataSource, UITableViewDelegate {
-    
     //MARK: - Table View Data source and Delegate
+
+extension WeatherViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -214,5 +206,40 @@ extension WeatherViewController: UITableViewDataSource, UITableViewDelegate {
         return 90
     }
 
+}
+
+    //MARK: - SearchBar delegate
+
+extension WeatherViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        let request: NSFetchRequest<SavedWeathedData> = SavedWeathedData.fetchRequest()
+        
+        let predicate = NSPredicate(format: "city CONTAINS[cd] %@", searchBar.text!)
+        
+        request.predicate = predicate
+        
+        let sortDescriptor = NSSortDescriptor(key: "dateAndTime", ascending: true)
+        request.sortDescriptors = [sortDescriptor]
+        
+        do {
+            weatherArray = try context.fetch(request)
+        } catch {
+            print("Error fetching data from context \(error)")
+        }
+        tableView.reloadData()
+    }
+}
+
+
+    //MARK: - ChangeCityDelegate methods
+extension WeatherViewController: ChangeCityDelegate {
+    
+    func userEnteredANewCityName(city: String) {
+        
+        let params: [String: String] = ["q" : city, "appid" : APP_ID]
+        getWeatherData(url: WEATHER_URL, parameters: params)
+    }
 }
 

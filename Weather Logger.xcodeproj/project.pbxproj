@@ -167,6 +167,7 @@
 			children = (
 				9F434514220D7BCA001E5F1A /* LaunchScreen.storyboard */,
 				9F43450C220D7BC8001E5F1A /* Main.storyboard */,
+				9F4345422212EAC5001E5F1A /* TableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -178,7 +179,6 @@
 				9F43450A220D7BC8001E5F1A /* WeatherViewController.swift */,
 				9F4345452212FC3A001E5F1A /* ChangeCityViewController.swift */,
 				9F4345412212EAC5001E5F1A /* TableViewCell.swift */,
-				9F4345422212EAC5001E5F1A /* TableViewCell.xib */,
 				9F43453F2212E1CF001E5F1A /* Helper.swift */,
 			);
 			path = Controller;

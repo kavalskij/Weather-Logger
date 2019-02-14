@@ -1,16 +1,20 @@
 PODS:
   - Alamofire (4.8.0)
+  - SwipeCellKit (2.5.1)
 
 DEPENDENCIES:
   - Alamofire
+  - SwipeCellKit
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
+    - SwipeCellKit
 
 SPEC CHECKSUMS:
   Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
+  SwipeCellKit: 30fd6a4f8a8b8ac864ea389c8b4c8bac5ba5471a
 
-PODFILE CHECKSUM: c1101c20cfafea88d06ebfb377bb315f272c19b0
+PODFILE CHECKSUM: c1882e3115467d19f9fa1e5fc2d7c30514ad31af
 
 COCOAPODS: 1.5.3

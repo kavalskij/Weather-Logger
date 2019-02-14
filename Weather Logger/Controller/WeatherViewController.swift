@@ -10,6 +10,7 @@ import UIKit
 import CoreLocation
 import Alamofire
 import CoreData
+import SwipeCellKit
 
 class WeatherViewController: UIViewController, CLLocationManagerDelegate {
     
@@ -167,12 +168,22 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
+    func pushAnimation(navigationController: UINavigationController) {
+        
+        let transition = CATransition()
+        transition.duration = 0.5
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        transition.type = CATransitionType.push;
+        transition.subtype = CATransitionSubtype.fromTop;
+        navigationController.view.layer.add(transition, forKey: kCATransition)
+    }
+    
 }
 
 
     //MARK: - Table View Data source and Delegate
 
-extension WeatherViewController: UITableViewDataSource, UITableViewDelegate {
+extension WeatherViewController: UITableViewDataSource, UITableViewDelegate, SwipeTableViewCellDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -181,6 +192,8 @@ extension WeatherViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = Bundle.main.loadNibNamed("TableViewCell", owner: self, options: nil)?.first as! TableViewCell
+        
+        cell.delegate = self
         
         cell.cityNameLabel?.text = weatherArray[indexPath.row].city
         cell.temperatureLabel?.text = String(weatherArray[indexPath.row].temperature)
@@ -191,20 +204,34 @@ extension WeatherViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        context.delete(weatherArray[indexPath.row])
-        weatherArray.remove(at: indexPath.row)
-        
-        saveWeatherDetails()
-        
+
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        self.tableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         return 90
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+        guard orientation == .right else { return nil }
+        
+        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { action, indexPath in
+            
+            self.context.delete(self.weatherArray[indexPath.row])
+            self.weatherArray.remove(at: indexPath.row)
+            self.saveWeatherDetails()
+        }
+
+        deleteAction.image = UIImage(named: "delete-icon")
+        
+        return [deleteAction]
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
+        var options = SwipeOptions()
+        options.expansionStyle = .destructive
+        return options
     }
 
 }

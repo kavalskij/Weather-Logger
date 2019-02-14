@@ -8,6 +8,7 @@ target 'Weather Logger' do
   # Pods for Weather Logger
 
 	pod 'Alamofire'
+	pod 'SwipeCellKit'
 
   target 'Weather LoggerTests' do
     inherit! :search_paths

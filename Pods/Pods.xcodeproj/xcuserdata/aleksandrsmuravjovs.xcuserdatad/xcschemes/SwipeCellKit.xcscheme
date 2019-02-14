@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2033ABFF5411590269243AB767905E26"
-               BuildableName = "Pods_Weather_Logger.framework"
-               BlueprintName = "Pods-Weather Logger"
+               BlueprintIdentifier = "88806D44640C82FF407B3F3F4B0A8294"
+               BuildableName = "SwipeCellKit.framework"
+               BlueprintName = "SwipeCellKit"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2033ABFF5411590269243AB767905E26"
-            BuildableName = "Pods_Weather_Logger.framework"
-            BlueprintName = "Pods-Weather Logger"
+            BlueprintIdentifier = "88806D44640C82FF407B3F3F4B0A8294"
+            BuildableName = "SwipeCellKit.framework"
+            BlueprintName = "SwipeCellKit"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

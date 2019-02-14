@@ -46,7 +46,6 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     
-    
     //MARK: - Networking
     
     func getWeatherData(url: String, parameters: [String:String]) {
@@ -118,7 +117,8 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
         temperatureLabel.text = "Location Unavailable"
     }
     
-    //MARK: - Saving Weather in Core Data
+    
+    //MARK: - Saving/Loading Weather using CoreData
     
     @IBAction func saveWeatherData(_ sender: UIBarButtonItem) {
         
@@ -146,16 +146,16 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-    func loadSavedWeather() {
-        
-        let request : NSFetchRequest<SavedWeathedData> = SavedWeathedData.fetchRequest()
+    func loadSavedWeather(with request: NSFetchRequest<SavedWeathedData> = SavedWeathedData.fetchRequest()) {
         
         do {
             weatherArray = try context.fetch(request)
         } catch {
             print("Error fetching data from context \(error)")
         }
+        tableView.reloadData()
     }
+    
     
     //MARK: - Segue to ChangeCityViewController
     
@@ -168,6 +168,7 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
     }
     
 }
+
 
     //MARK: - Table View Data source and Delegate
 
@@ -208,6 +209,7 @@ extension WeatherViewController: UITableViewDataSource, UITableViewDelegate {
 
 }
 
+
     //MARK: - SearchBar delegate
 
 extension WeatherViewController: UISearchBarDelegate {
@@ -216,24 +218,32 @@ extension WeatherViewController: UISearchBarDelegate {
         
         let request: NSFetchRequest<SavedWeathedData> = SavedWeathedData.fetchRequest()
         
-        let predicate = NSPredicate(format: "city CONTAINS[cd] %@", searchBar.text!)
+        request.predicate = NSPredicate(format: "city CONTAINS[cd] %@", searchBar.text!)
+    
+        request.sortDescriptors = [NSSortDescriptor(key: "dateAndTime", ascending: true)]
         
-        request.predicate = predicate
+        loadSavedWeather(with: request)
         
-        let sortDescriptor = NSSortDescriptor(key: "dateAndTime", ascending: true)
-        request.sortDescriptors = [sortDescriptor]
-        
-        do {
-            weatherArray = try context.fetch(request)
-        } catch {
-            print("Error fetching data from context \(error)")
+        DispatchQueue.main.async {
+            searchBar.resignFirstResponder()
         }
-        tableView.reloadData()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+
+        if searchBar.text?.count == 0 {
+            loadSavedWeather()
+
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder()
+            }
+        }
     }
 }
 
 
     //MARK: - ChangeCityDelegate methods
+
 extension WeatherViewController: ChangeCityDelegate {
     
     func userEnteredANewCityName(city: String) {

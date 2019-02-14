@@ -31,6 +31,7 @@ class Main: Decodable {
 }
 
 class Weather: Decodable {
+    
     var id: Int
 }
 

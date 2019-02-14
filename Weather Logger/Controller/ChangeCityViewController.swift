@@ -21,7 +21,6 @@ class ChangeCityViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
     
 
@@ -33,5 +32,4 @@ class ChangeCityViewController: UIViewController {
         
         navigationController?.popViewController(animated: true)
     }
-
 }

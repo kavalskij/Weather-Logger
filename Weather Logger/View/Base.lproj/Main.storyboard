@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cloudySky" translatesAutoresizingMaskIntoConstraints="NO" id="XWu-CZ-73r">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="1920"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5ZE-kw-UeZ" userLabel="WeatherView">
                                 <rect key="frame" x="0.0" y="88" width="414" height="335"/>
@@ -88,7 +88,7 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="api-Yo-gim"/>
                                 </connections>
                             </tableView>
-                            <searchBar contentMode="redraw" barStyle="black" searchBarStyle="minimal" placeholder="Search for saved weather" translatesAutoresizingMaskIntoConstraints="NO" id="OWY-L0-Lb5">
+                            <searchBar contentMode="redraw" barStyle="black" searchBarStyle="minimal" placeholder="Enter city name to search" translatesAutoresizingMaskIntoConstraints="NO" id="OWY-L0-Lb5">
                                 <rect key="frame" x="0.0" y="423" width="414" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="aZh-f8-0Dx"/>
@@ -108,6 +108,7 @@
                             <constraint firstItem="OWY-L0-Lb5" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="4g4-2X-gjt"/>
                             <constraint firstItem="5ZE-kw-UeZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ED1-Lp-32l"/>
                             <constraint firstItem="B6l-ec-Kdt" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="HkG-ds-qn9"/>
+                            <constraint firstAttribute="bottom" secondItem="XWu-CZ-73r" secondAttribute="bottom" id="JA8-Ly-RfB"/>
                             <constraint firstItem="OWY-L0-Lb5" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Lav-Gg-2Pv"/>
                             <constraint firstItem="OWY-L0-Lb5" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Qh8-Fc-Zem"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="B6l-ec-Kdt" secondAttribute="bottom" id="SN0-Mg-BHW"/>
@@ -125,7 +126,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="54l-rC-fVa">
                         <barButtonItem key="rightBarButtonItem" title="Save Weather" id="zIq-UP-o5r">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="saveWeatherData:" destination="BYZ-38-t0r" id="3eK-aa-iwf"/>
                             </connections>
@@ -153,7 +154,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cityBackground" translatesAutoresizingMaskIntoConstraints="NO" id="OZB-sp-oxQ" userLabel="cityImageView">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                             </imageView>
                             <searchBar contentMode="redraw" barStyle="black" searchBarStyle="minimal" placeholder="Enter City Name" translatesAutoresizingMaskIntoConstraints="NO" id="d1a-Qc-3Wl">
                                 <rect key="frame" x="97" y="196" width="220" height="56"/>
@@ -174,17 +175,17 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Amf-ix-2D7" firstAttribute="centerX" secondItem="Y9f-mI-2vk" secondAttribute="centerX" id="1De-Be-T39"/>
                             <constraint firstItem="Amf-ix-2D7" firstAttribute="top" secondItem="d1a-Qc-3Wl" secondAttribute="bottom" constant="25" id="375-QW-oV8"/>
                             <constraint firstItem="Amf-ix-2D7" firstAttribute="width" secondItem="d1a-Qc-3Wl" secondAttribute="width" id="ALz-sk-YNr"/>
                             <constraint firstItem="OZB-sp-oxQ" firstAttribute="top" secondItem="fEQ-42-aYp" secondAttribute="top" id="EPF-Id-5av"/>
-                            <constraint firstItem="fEQ-42-aYp" firstAttribute="bottom" secondItem="OZB-sp-oxQ" secondAttribute="bottom" id="aBb-w9-sWg"/>
                             <constraint firstItem="fEQ-42-aYp" firstAttribute="trailing" secondItem="OZB-sp-oxQ" secondAttribute="trailing" id="bhl-FF-MF2"/>
                             <constraint firstItem="OZB-sp-oxQ" firstAttribute="leading" secondItem="fEQ-42-aYp" secondAttribute="leading" id="gEA-0L-eVE"/>
                             <constraint firstItem="d1a-Qc-3Wl" firstAttribute="centerY" secondItem="Y9f-mI-2vk" secondAttribute="centerY" multiplier="0.5" id="iU5-mW-BNd"/>
                             <constraint firstItem="d1a-Qc-3Wl" firstAttribute="centerX" secondItem="Y9f-mI-2vk" secondAttribute="centerX" id="lMe-dv-oJJ"/>
+                            <constraint firstAttribute="bottom" secondItem="OZB-sp-oxQ" secondAttribute="bottom" id="y35-Ro-qcC"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fEQ-42-aYp"/>
                     </view>
@@ -222,4 +223,5 @@
         <image name="cloudySky" width="1080" height="1920"/>
         <image name="switch" width="64" height="64"/>
     </resources>
+    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
 </document>

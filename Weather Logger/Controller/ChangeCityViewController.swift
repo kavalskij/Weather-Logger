@@ -21,6 +21,7 @@ class ChangeCityViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
     
 
@@ -30,6 +31,19 @@ class ChangeCityViewController: UIViewController {
         
         delegate?.userEnteredANewCityName(city: cityName)
         
-        navigationController?.popViewController(animated: true)
+        getWeatherAnimation()
+    }
+    
+    //MARK: - Animations
+    
+    @objc func getWeatherAnimation() {
+        
+        let transition = CATransition()
+        transition.duration = 0.4
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        transition.type = CATransitionType.fade
+        transition.subtype = CATransitionSubtype.fromBottom
+        navigationController?.view.layer.add(transition, forKey:kCATransition)
+        let _ = navigationController?.popViewController(animated: false)
     }
 }

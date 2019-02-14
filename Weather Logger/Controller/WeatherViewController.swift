@@ -20,9 +20,11 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var weatherBackgroundImage: UIImageView!
     @IBOutlet weak var savedWeatherSearchBar: UISearchBar!
+
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var weatherArray = [SavedWeathedData]()
+    var currentPositionParams = [String : String]()
     
     //Constants
     let WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather"
@@ -63,7 +65,6 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
                 self.cityLabel.text = "Connection Issues"
             }
         }
-        
     }
     
     
@@ -88,7 +89,6 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
         } catch {
             print(error)
             self.temperatureLabel.text = "Weather Unavailable"
-            self.cityLabel.text = "Check your internet connection"
         }
     }
 
@@ -106,9 +106,9 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
             let latitude = String(location.coordinate.latitude)
             let longitude = String(location.coordinate.longitude)
             
-            let params: [String : String] = ["lat" : latitude, "lon" : longitude, "appid" : APP_ID]
+            currentPositionParams = ["lat" : latitude, "lon" : longitude, "appid" : APP_ID]
             
-            getWeatherData(url: WEATHER_URL, parameters: params)
+            getWeatherData(url: WEATHER_URL, parameters: currentPositionParams)
         }
     }
     
@@ -133,8 +133,7 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
         weatherArray.append(newWeatherData)
         
         self.saveWeatherDetails()
-
-
+        
         self.tableView.reloadData()
     }
     
@@ -178,6 +177,13 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
         navigationController.view.layer.add(transition, forKey: kCATransition)
     }
     
+    //MARK: - Method for returning to current weather data
+    
+    @IBAction func updateToACurrentWeatherData(_ sender: UIBarButtonItem) {
+        
+        getWeatherData(url: WEATHER_URL, parameters: currentPositionParams)
+    }
+    
 }
 
 
@@ -195,9 +201,9 @@ extension WeatherViewController: UITableViewDataSource, UITableViewDelegate, Swi
         
         cell.delegate = self
         
-        cell.cityNameLabel?.text = weatherArray[indexPath.row].city
-        cell.temperatureLabel?.text = String(weatherArray[indexPath.row].temperature)
-        cell.dateAndTimeLabel?.text = Helper().formatDate(fromDate: weatherArray[indexPath.row].dateAndTime!)
+        cell.cityNameLabel?.text = "City: \(weatherArray[indexPath.row].city ?? "Weather is not saved yet")"
+        cell.temperatureLabel?.text =  "Temperature: \(String(Int(weatherArray[indexPath.row].temperature)))°"
+        cell.dateAndTimeLabel?.text = "Date: \(Helper().formatDate(fromDate: weatherArray[indexPath.row].dateAndTime!))"
         cell.weatherIconImage?.image = UIImage(named: weatherArray[indexPath.row].weatherIconName!)
         
         return cell
@@ -269,7 +275,7 @@ extension WeatherViewController: UISearchBarDelegate {
 }
 
 
-    //MARK: - ChangeCityDelegate methods
+    //MARK: - ChangeCityDelegate
 
 extension WeatherViewController: ChangeCityDelegate {
     

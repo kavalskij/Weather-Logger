@@ -24,7 +24,6 @@ class ChangeCityViewController: UIViewController {
         
     }
     
-
     @IBAction func getWeatherPressed(_ sender: UIButton) {
         
         let cityName = changeCityTextField.text!
@@ -33,6 +32,7 @@ class ChangeCityViewController: UIViewController {
         
         getWeatherAnimation()
     }
+    
     
     //MARK: - Animations
     
